@@ -82,7 +82,7 @@ source .venv/bin/activate
 These are the dependencies required to run the demo. You can install them using `uv pip`.
 
 ```bash
-uv pip install -U fastapi uvicorn sqlalchemy pgvector psycopg openai mcp agno ollama registry ddgs
+uv pip install -U fastapi uvicorn sqlalchemy pgvector psycopg chromadb openai mcp agno ollama registry ddgs
 ```
 
 ### 6. Set up environment variables
@@ -131,7 +131,7 @@ Once you're logged in, you can add your own AgentOS. Click on "Add AgentOS" and 
 
 ## Links
 
-**Agno docs: **
+**Agno docs:**
 - https://docs.agno.com/agent-os/usage/demo
 - https://docs.agno.com/agent-os/studio/introduction
 
@@ -140,7 +140,7 @@ Once you're logged in, you can add your own AgentOS. Click on "Add AgentOS" and 
 - https://www.docker.com/get-started/
 - https://docs.docker.com/desktop/setup/install/windows-install/
 
-**Models**
+**Models:**
 - https://ollama.com/library/glm-4.7-flash
 - https://ollama.com/library/gemma4
 - https://developers.openai.com/api/docs/guides/embeddings
