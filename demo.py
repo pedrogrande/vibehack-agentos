@@ -89,7 +89,10 @@ research_team = Team(
 registry = Registry(
     name="My Registry",
     tools=[WebSearchTools()],
-    models=[OllamaResponses(id="glm-4.7-flash:cloud")],
+    models=[
+        OllamaResponses(id="glm-4.7-flash:cloud"),
+        OllamaResponses(id="gemma4:31b-cloud"),
+    ],
     dbs=[
         studio_db
     ],  # Studio requires the `db` parameter to save and load agents, teams, and workflows.
