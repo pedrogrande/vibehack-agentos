@@ -21,6 +21,8 @@ from agno.registry import Registry
 # Database connection
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
+studio_db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
+
 # Create Postgres-backed memory store
 db = PostgresDb(db_url=db_url)
 
@@ -63,7 +65,7 @@ research_agent = Agent(
     id="research_agent",
     model=OllamaResponses(id="glm-4.7-flash:cloud"),
     instructions=["You are a research agent"],
-    tools=[HackerNewsTools()],
+    tools=[HackerNewsTools(), HackerNewsTools()],
     db=db,
     update_memory_on_run=True,
 )
@@ -89,7 +91,7 @@ registry = Registry(
     tools=[WebSearchTools()],
     models=[OllamaResponses(id="glm-4.7-flash:cloud")],
     dbs=[
-        db
+        studio_db
     ],  # Studio requires the `db` parameter to save and load agents, teams, and workflows.
 )
 
@@ -99,6 +101,7 @@ agent_os = AgentOS(
     agents=[agno_agent],
     teams=[research_team],
     registry=registry,
+    db=studio_db,
 )
 app = agent_os.get_app()
 
