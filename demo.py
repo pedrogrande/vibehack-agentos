@@ -6,7 +6,6 @@ uv pip install -U fastapi uvicorn sqlalchemy pgvector psycopg openai ollama mcp 
 """
 
 from agno.agent import Agent
-from agno.db.postgres import PostgresDb
 from agno.knowledge.knowledge import Knowledge
 from agno.models.ollama import OllamaResponses
 from agno.knowledge.embedder.openai import OpenAIEmbedder
@@ -15,16 +14,21 @@ from agno.os import AgentOS
 from agno.team import Team
 from agno.tools.hackernews import HackerNewsTools
 from agno.tools.mcp import MCPTools
-from agno.vectordb.pgvector import PgVector
+from agno.vectordb.chroma import ChromaDb
+
+# from agno.vectordb.pgvector import PgVector
+from agno.db.in_memory import InMemoryDb
 from agno.registry import Registry
 
 # Database connection
-db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
+# db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-studio_db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
+# studio_db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
+studio_db = InMemoryDb()
 
 # Create Postgres-backed memory store
-db = PostgresDb(db_url=db_url)
+# db = PostgresDb(db_url=db_url)
+db = InMemoryDb()
 
 # Create Postgres-backed vector store
 vector_db = PgVector(
@@ -33,9 +37,17 @@ vector_db = PgVector(
     embedder=OpenAIEmbedder(id="text-embedding-3-small"),
 )
 knowledge = Knowledge(
-    name="Agno Docs",
-    contents_db=db,
-    vector_db=vector_db,
+    name="Basic SDK Knowledge Base",
+    description="Agno 2.0 Knowledge Implementation with ChromaDB",
+    vector_db=ChromaDb(
+        collection="vectors", path="tmp/chromadb", persistent_client=True
+    ),
+)
+
+knowledge.insert(
+    name="Recipes",
+    url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf",
+    metadata={"doc_type": "recipe_book"},
 )
 
 # Create your agents
@@ -94,7 +106,8 @@ registry = Registry(
         OllamaResponses(id="gemma4:31b-cloud"),
     ],
     dbs=[
-        studio_db
+        studio_db,
+        db,
     ],  # Studio requires the `db` parameter to save and load agents, teams, and workflows.
 )
 
