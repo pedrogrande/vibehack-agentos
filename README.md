@@ -132,15 +132,15 @@ Once you're logged in, you can add your own AgentOS. Click on "Add AgentOS" and 
 ## Links
 
 **Agno docs: **
-https://docs.agno.com/agent-os/usage/demo
-https://docs.agno.com/agent-os/studio/introduction
+- https://docs.agno.com/agent-os/usage/demo
+- https://docs.agno.com/agent-os/studio/introduction
 
 
 **Docker:**
-https://www.docker.com/get-started/
-https://docs.docker.com/desktop/setup/install/windows-install/
+- https://www.docker.com/get-started/
+- https://docs.docker.com/desktop/setup/install/windows-install/
 
 **Models**
-https://ollama.com/library/glm-4.7-flash
-https://ollama.com/library/gemma4
-https://developers.openai.com/api/docs/guides/embeddings
+- https://ollama.com/library/glm-4.7-flash
+- https://ollama.com/library/gemma4
+- https://developers.openai.com/api/docs/guides/embeddings
